@@ -1,0 +1,23 @@
+<div style="height:60px;" fxLayout="row" fxLayoutAlign="space-between center" (click)="selecLivro()">
+    <div>
+        <img [src]="(livro.imgUrl?livro.imgUrl:defaultImage)" style="max-height: 50px;">
+    </div>
+    <div>
+        <p class="text-start">{{livro.title}}</p>
+    </div>
+    <div style="width: 50%;"></div>
+    <div fxLayout="row">
+        <button mat-mini-fab class="me-2" matTooltip="Adicionar à Estante" matTooltipPosition="left"
+            (click)="addLivroToList()" *ngIf="showBookmark">
+            <mat-icon>bookmark</mat-icon>
+        </button>
+        <button mat-mini-fab class="me-2" matTooltip="Editar" matTooltipPosition="left" (click)="editLivro()"
+            *ngIf="showEdit">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-mini-fab class="me-2" matTooltip="Deletar" matTooltipPosition="right" (click)="deleteLivro()"
+            *ngIf="showDelete">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+</div>

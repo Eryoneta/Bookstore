@@ -1,0 +1,13 @@
+<div style="overflow: auto;max-height: 100%;">
+    <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Procurar</mat-label>
+        <input matInput #search>
+    </mat-form-field>
+    <mat-selection-list #livrosList [multiple]="false">
+        <mat-list-option *ngFor="let livro of getLivros() | filter:search.value" [value]="livro" style="height:60px">
+            <app-book-item [baseLink]="baseLink" [showEdit]="showEdit" [showDelete]="showDelete"
+                [showBookmark]="showBookmark" [livro]="livro"></app-book-item>
+        </mat-list-option>
+    </mat-selection-list>
+</div>
+<app-loading *ngIf="isLoading"></app-loading>

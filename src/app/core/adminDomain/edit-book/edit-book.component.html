@@ -1,0 +1,108 @@
+<form [formGroup]="formulario" (ngSubmit)="submit()">
+    <mat-card class="m-3">
+        <mat-card-header>
+            <mat-card-title>
+                {{(hasLivro()?"Editar Livro":"Novo Livro")}}
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+            <div class="largo" fxLayout="row">
+                <div class="metade-spaced">
+                    <mat-form-field appearance="fill" class="largo">
+                        <mat-label>Titulo</mat-label>
+                        <input matInput formControlName="title">
+                        <mat-icon matSuffix>title</mat-icon>
+                        <mat-error *ngIf="true">
+                            O Título é obrigatório!
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="largo">
+                        <mat-label>Subtitulo</mat-label>
+                        <input matInput formControlName="subtitle">
+                        <mat-icon matSuffix>title</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="largo">
+                        <mat-label>Autor</mat-label>
+                        <input matInput formControlName="author">
+                        <mat-icon matSuffix>title</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="metade">
+                    <mat-form-field appearance="fill" class="largo">
+                        <mat-label>Capa</mat-label>
+                        <input matInput formControlName="imgUrl">
+                        <mat-icon matSuffix>image_search</mat-icon>
+                    </mat-form-field>
+                    <div class="largo mb-3" fxLayout="row" fxLayoutAlign="center">
+                        <div *ngIf="isValid(formulario.value.imgUrl); else noBookCover">
+                            <img [src]="formulario.value.imgUrl" alt="Capa do Livro">
+                        </div>
+                        <ng-template #noBookCover>
+                            <img [src]="defaultImage">
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+
+            <mat-form-field appearance="fill" class="largo">
+                <mat-label>Descrição</mat-label>
+                <textarea matInput formControlName="description" rows="5"></textarea>
+                <mat-icon matSuffix>title</mat-icon>
+                <mat-error *ngIf="true">
+                    A descrição é obrigatória!
+                </mat-error>
+            </mat-form-field>
+
+            <div class="largo">
+                <mat-form-field appearance="fill" class="metade-spaced">
+                    <mat-label>Data de Publicação</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="metade">
+                    <mat-label>Publicador</mat-label>
+                    <input matInput formControlName="publisher">
+                    <mat-icon matSuffix>title</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="largo" fxLayout="column">
+                <div formArrayName="tags">
+                    <div *ngFor="let tagControl of getTags();let i=index">
+                        <div fxLayout="row" class="largo">
+                            <mat-form-field appearance="fill" class="metade">
+                                <mat-label>Tag</mat-label>
+                                <input matInput [formControlName]="i">
+                                <mat-icon matSuffix>title</mat-icon>
+                            </mat-form-field>
+                            <button mat-mini-fab matTooltip="Remover Tag" matTooltipPosition="right" type="button"
+                                (click)="delTag(i)" class="mx-3 mt-2">
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" class="largo">
+                    <button mat-mini-fab matTooltip="Adicionar Tag" type="button" (click)="addTag('')"
+                        class="mx-3 mt-2">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+        </mat-card-content>
+        <mat-card-actions>
+            <div fxLayout="row" fxLayoutAlign="flex-end">
+                <button mat-button (click)="cancel()">Cancelar</button>
+                <button mat-button type="submit" [disabled]="!formulario.valid||!formulario.dirty">
+                    {{(hasLivro()?"Atualizar":"Criar")}}
+                </button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</form>

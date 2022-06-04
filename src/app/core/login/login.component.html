@@ -1,0 +1,48 @@
+<form #formulario="ngForm" (ngSubmit)="submit()">
+    <div fxLayout="row" fxLayoutAlign="space-around">
+        <mat-card class="m-3" style="width: 80vh;">
+            <mat-card-header>
+                <mat-card-title fxLayout="row">
+                    {{mode===MODE.LOGIN?"Entrar":"Registrar"}}
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <div fxLayout="column">
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Email</mat-label>
+                        <input matInput #email="ngModel" ngModel name="email" required email>
+                        <mat-error *ngIf="!email.valid">
+                            {{(email.errors['required']?"O email é obrigatório!":"Deve ser um email!")}}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Senha</mat-label>
+                        <input matInput type="password" #password="ngModel" ngModel name="password" required
+                            minlength="6">
+                        <mat-error *ngIf="!password.valid">
+                            {{(password.errors['required']?"A senha é obrigatória!"
+                            :(password.errors['minlength']?"A senha deve ter ao menos "+
+                            password.errors['minlength'].requiredLength
+                            +" caracteres!":"Deve ser uma senha válida!"))}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <div fxLayout="row" fxLayoutAlign="flex-end">
+                    <button mat-button (click)="cancel()">Cancelar</button>
+                    <button mat-button type="submit" [disabled]="!formulario.valid||!formulario.dirty">
+                        {{mode===MODE.LOGIN?"Entrar":"Registrar"}}
+                    </button>
+                </div>
+            </mat-card-actions>
+            <div class="alert alert-danger" *ngIf="error">
+                {{error}}
+            </div>
+        </mat-card>
+    </div>
+</form>
+<app-loading *ngIf="isLoading"></app-loading>

@@ -1,0 +1,67 @@
+<mat-card>
+    <mat-card-header>
+        <div mat-card-avatar></div>
+        <mat-card-title>
+            <div *ngIf="has(livroField.TITLE);else noBookTitle">
+                {{livro!.title}}{{(has(livroField.SUBTITLE)?": "+livro!.subtitle:"")}}
+            </div>
+            <ng-template #noBookTitle><i>Título do Livro</i></ng-template>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <div *ngIf="has(livroField.AUTHOR);else noBookAuthor">
+                {{livro!.author}}
+            </div>
+            <ng-template #noBookAuthor><i>Autor do Livro</i></ng-template>
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content fxLayout="column">
+
+        <div fxLayout.gt-sm="row" fxLayout.lt-sm="column">
+            <div *ngIf="has(livroField.IMG_URL); else noBookCover">
+                <img [src]="livro!.imgUrl" alt="Capa de {{(has(livroField.TITLE)?livro!.title:'')}}" class="me-2">
+            </div>
+            <ng-template #noBookCover>
+                <img [src]="defaultImage" alt="Capa do Livro" class="me-2">
+            </ng-template>
+
+            <div *ngIf="has(livroField.DESCRIPTION); else noBookDescription">
+                {{livro!.description}}
+            </div>
+            <ng-template #noBookDescription><i>Descrição do Livro</i></ng-template>
+        </div>
+
+        <div fxLayout="column">
+            <div *ngIf="has(livroField.DATE); else noBookDate">
+                {{livro!.date | date:"dd/MM/yyyy"}}
+            </div>
+            <ng-template #noBookDate><i>Data de Publicação do Livro</i></ng-template>
+
+            <div *ngIf="has(livroField.PUBLISHER); else noBookPublisher">
+                {{livro!.publisher}}
+            </div>
+            <ng-template #noBookPublisher><i>Publicador do Livro</i></ng-template>
+        </div>
+
+        <div fxLayout="row">
+            <div *ngIf="has(livroField.TAGS); else noBookTags">
+                <ng-container *ngFor="let tag of livro!.tags">
+                    {{tag}}
+                </ng-container>
+            </div>
+            <ng-template #noBookTags><i>Tags do Livro</i></ng-template>
+        </div>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+        <div fxLayoutAlign="space-between">
+            <button mat-fab matTooltip="Anterior" (click)="prevLivro()" [disabled]="!hasPrevLivro()">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <button mat-fab matTooltip="Próximo" (click)="nextLivro()" [disabled]="!hasNextLivro()">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+        </div>
+    </mat-card-actions>
+</mat-card>

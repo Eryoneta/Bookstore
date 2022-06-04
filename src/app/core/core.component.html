@@ -1,0 +1,15 @@
+<mat-drawer-container hasBackdrop="true">
+
+    <mat-drawer #sideMenu mode="over">
+      <app-side-menu (onSideMenuHide)="sideMenu.close()"></app-side-menu>
+    </mat-drawer>
+  
+    <mat-drawer-content fxLayout="column" fxLayoutAlign="space-between">
+      <app-header (onSideMenuToggle)="sideMenu.toggle()"></app-header>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+      <app-footer></app-footer>
+    </mat-drawer-content>
+  
+  </mat-drawer-container>

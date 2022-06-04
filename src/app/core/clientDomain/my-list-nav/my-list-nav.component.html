@@ -1,0 +1,22 @@
+<div fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-evenly" fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="space-between"
+    style="height: 80vh;">
+    <div fxLayout="column" style="min-width: 45vw;" class="m-2">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    Lista de Livros
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <app-book-list
+                [baseLink]="baseLink" [showDelete]="showDelete"></app-book-list>
+            </mat-card-content>
+            <mat-card-actions>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <br>
+    <div fxLayout="column" style="min-width: 45vw;" class="m-2">
+        <app-book-detail [baseLink]="baseLink"></app-book-detail>
+    </div>
+</div>

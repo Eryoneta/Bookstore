@@ -1,0 +1,17 @@
+<div fxLayout="row" fxFlexAlign="center">
+    <div fxLayout="column" fxFlexAlign="center" style="width: 100%;">
+        <button mat-button routerLink="" style="width: 100%;">
+            <h1>Livros</h1>
+        </button>
+    </div>
+</div>
+<mat-selection-list #MenuList [multiple]="false">
+    <ng-container *ngFor="let item of itens">
+        <mat-list-option style="height:60px" [routerLink]="item.link" (click)="hideSideMenu()">
+            <div fxLayout="row">
+                <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
+                <p class="ms-2">{{item.name}}</p>
+            </div>
+        </mat-list-option>
+    </ng-container>
+</mat-selection-list>

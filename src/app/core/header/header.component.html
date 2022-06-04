@@ -1,0 +1,54 @@
+<mat-toolbar color="primary">
+    <div>
+        <button mat-icon-button (click)="triggerSideMenu()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <button mat-button routerLink="">
+            <h1>Livros</h1>
+        </button>
+    </div>
+    <div fxLayout="row">
+        <ng-container *ngFor="let item of itens;let i=index">
+
+            <div *ngIf="!item.itens;else hasMenu">
+                <div *ngIf="!item.icon;else hasIcon">
+                    <button mat-raised-button [routerLink]="(item.link?item.link:null)"
+                        color="primary" class="me-2">
+                        {{(item.name)}}
+                    </button>
+                </div>
+                <ng-template #hasIcon>
+                    <button mat-mini-fab [matTooltip]="item.name" [routerLink]="(item.link?item.link:null)"
+                        color="primary" class="me-2">
+                        <mat-icon>{{item.icon}}</mat-icon>
+                    </button>
+                </ng-template>
+            </div>
+
+            <ng-template #hasMenu>
+                <div *ngIf="!item.icon;else hasIcon">
+                    <button mat-raised-button [routerLink]="(item.link?item.link:null)"
+                    [matMenuTriggerFor]="miniMenu" color="primary" class="me-2">
+                        {{(item.name)}}
+                    </button>
+                </div>
+                <ng-template #hasIcon>
+                    <button mat-mini-fab [matTooltip]="item.name" [routerLink]="(item.link?item.link:null)"
+                    [matMenuTriggerFor]="miniMenu" color="primary" class="me-2">
+                        <mat-icon>{{item.icon}}</mat-icon>
+                    </button>
+                </ng-template>
+
+                <mat-menu #miniMenu="matMenu">
+                    <ng-container *ngFor="let item of item.itens">
+                        <button mat-menu-item [routerLink]="(item.link?item.link:null)">
+                            <mat-icon *ngIf="item.icon">{{item.icon}}</mat-icon>
+                            {{item.name}}
+                        </button>
+                    </ng-container>
+                </mat-menu>
+            </ng-template>
+
+        </ng-container>
+    </div>
+</mat-toolbar>

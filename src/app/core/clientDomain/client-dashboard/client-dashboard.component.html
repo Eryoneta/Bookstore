@@ -1,0 +1,16 @@
+<div>
+    <mat-selection-list #MyLists [multiple]="false">
+        <mat-list-option style="height:60px" routerLink="my-list">
+            <div fxLayout="row" fxFlexAlign="start center">
+                <div class="me-3">
+                    <button mat-fab matTooltip="Lista 1" matTooltipPosition="right">
+                        <mat-icon>list</mat-icon>
+                    </button>
+                </div>
+                <div style="height:20px" fxLayout="column" fxFlexAlign="center">
+                    <p>Lista 1</p>
+                </div>
+            </div>
+        </mat-list-option>
+    </mat-selection-list>
+</div>

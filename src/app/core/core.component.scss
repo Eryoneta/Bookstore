@@ -1,0 +1,20 @@
+mat-drawer-container,
+mat-drawer-content,
+mat-drawer {
+    height: 100%;
+}
+
+mat-drawer {
+    width: 300px;
+}
+
+mat-drawer-content {
+    main {
+        overflow: auto;
+    }
+}
+
+::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+    background-color: rgba(#000, 0.6);
+    opacity: 1;
+}
